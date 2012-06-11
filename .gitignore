@@ -2,3 +2,7 @@
 *.pot
 *.pyc
 local_settings.py
+datas_and_utils/
+migration.txt
+acanthes/settings.py
+acanthes/media
