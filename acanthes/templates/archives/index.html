@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load sorting_tags  pagination_tags %}
+
+{% block content %}
+<script>
+  $(document).ready(function() { $("#id_annee, #id_kf_id_lieu, #id_kf_id_orchestre, #id_kf_id_intervenant_principal").select2(); });
+</script>
+<div class="row">
+  <div class="span8">
+    <table class="table table-striped">
+	{% autopaginate filterset.qs 15 as object_list %}
+      <tr>
+        <th>Title</th>
+        <th>Keynote speaker</th>
+        <th>Orchestra</th>
+        <th>Place</th>
+        <th>Year</th>
+      <tr>
+    {% for obj in object_list %}
+      <tr>
+        <td><a href="{% url detail obj.id %}">{{ obj.subtitle }}</a></td>
+        <td>{{ obj.kf_id_intervenant_principal }}</td>
+        <td>{{ obj.kf_id_orchestre }}</td>
+        <td>{{ obj.kf_id_lieu }}</td>
+        <td>{{ obj.annee }}</td>
+      </tr>
+    {% endfor %}
+    </table>
+     {% paginate %}
+  </div>
+  <div class="span4">
+     <form action="" class="well" method="get">
+        {{ filterset.form.as_p }}
+        <div class="form-actions">
+        <input type="submit" value="Search" class="btn-primary"/>
+        </div>
+      </form>
+  </div>
+</div>
+{% endblock %}

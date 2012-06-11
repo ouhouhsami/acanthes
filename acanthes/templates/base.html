@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ STATIC_URL }}blue.monday/jplayer.blue.monday.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}jQuery.jPlayer.2.1.0/jquery.jplayer.min.js"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css">
+    <link rel="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.min.css">
+    <link rel="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}select2-2.0/select2.css">
+    <script src="{{ STATIC_URL }}select2-2.0/select2.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+
+    <style>
+      body {
+        padding-top: 60px;
+      }
+    </style>
+    {% block javascript %}
+    {% endblock %}
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a href="{% url home %}" class="brand">Acanthes Archives</a>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

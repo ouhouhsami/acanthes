@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block javascript %}
+{% if audio.url_ecoute_intranet_adresse %}
+  <script type="text/javascript">
+    $(document).ready(function(){
+	
+      $("#jquery_jplayer_1").jPlayer({
+        ready: function () {
+          $(this).jPlayer("setMedia", {
+            mp3: "{{ audio.url_ecoute_intranet_adresse.url }}"
+          });
+        },
+        swfPath: "/static/jQuery.jPlayer.2.1.0/",
+        supplied: "mp3"
+      });
+    
+    });
+  </script>
+{% endif %}
+<script>
+$(document).ready(function() {
+
+
+$('#jpId').jPlayer({
+ swfPath: "/static/jQuery.jPlayer.2.1.0/",
+ solution: 'html, flash',
+ supplied: 'mp3',
+ preload: 'metadata',
+ volume: 0.8,
+ muted: false,
+ backgroundColor: '#000000',
+ cssSelectorAncestor: '#jp_container_1',
+ cssSelector: {
+  videoPlay: '.jp-video-play',
+  play: '.jp-play',
+  pause: '.jp-pause',
+  stop: '.jp-stop',
+  seekBar: '.jp-seek-bar',
+  playBar: '.jp-play-bar',
+  mute: '.jp-mute',
+  unmute: '.jp-unmute',
+  volumeBar: '.jp-volume-bar',
+  volumeBarValue: '.jp-volume-bar-value',
+  volumeMax: '.jp-volume-max',
+  currentTime: '.jp-current-time',
+  duration: '.jp-duration',
+  fullScreen: '.jp-full-screen',
+  restoreScreen: '.jp-restore-screen',
+  repeat: '.jp-repeat',
+  repeatOff: '.jp-repeat-off',
+  gui: '.jp-gui',
+  noSolution: '.jp-no-solution'
+ },
+ errorAlerts: false,
+ warningAlerts: false
+});
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="span12">
+    <div class="well">
+    <h1>{{ audio.subtitle }} <small>Acanthes {{ audio.annee }}</small> 
+    {% if audio.kf_id_langue_1 %}<span style="vertical-align: text-middle;" class="badge badge-info">{{ audio.kf_id_langue_1 }}</span>{% endif %}
+    {% if audio.kf_id_langue_2 %}<span style="vertical-align: text-middle;" class="badge badge-info">{{ audio.kf_id_langue_2 }}</span>{% endif %}
+    {% if audio.kf_id_langue_3 %}<span style="vertical-align: text-middle;" class="badge badge-info">{{ audio.kf_id_langue_3 }}</span>{% endif %}
+    </h1>
+    <h2>{{ audio.kf_id_intervenant_principal }}</h2>
+    {% if audio.url_ecoute_intranet_adresse %}
+    {% include 'archives/player_audio.html' %}
+    {% endif %}
+    </div>
+    
+    <table class="table">
+      {% if audio.kf_id_orchestre %}
+      <tr>
+        <td>Orchestra</td>
+        <td>
+          <h3>{{ audio.kf_id_orchestre }}</h3>
+          {% if audio.kf_id_orchestre.musiciens %}<p>{{ audio.kf_id_orchestre.musiciens|linebreaksbr }}</p>{% endif %}
+        </td>
+      </tr>
+      {% endif %}
+      {% if audio.abstract %}
+      <tr>
+        <td>Abstract</td>
+        <td>{{ audio.abstract|linebreaksbr }}</td>
+      </tr>
+      {% endif %}
+      {% if audio.intervenantaudio_set.all %}
+      <tr>
+        <td>Speakers</td>
+        <td>{% for speaker in audio.intervenantaudio_set.all|dictsort:"ordre" %}
+          <h3>
+            {{ speaker.intervenant }} {% if speaker.role %}<small>{{ speaker.role }}</small>{% endif %}
+            {% if speaker.intervenant.web_1 %}
+              <small><a target="_blank" style="vertical-align: text-top;" class="label label-info" href="{{ speaker.intervenant.web_1 }}">link 1</a></small>
+            {% endif %}
+            {% if speaker.intervenant.web_2 %}
+              <small><a target="_blank" style="vertical-align: text-top;" class="label label-info" href="{{ speaker.intervenant.web_2 }}">link 2</a></small>
+            {% endif %}
+          </h3> 
+          {% if speaker.intervenant.biographie %}
+          <p>{{ speaker.intervenant.biographie|linebreaksbr }}</p>
+          {% endif %}
+
+             
+          {% if forloop.last %}{% else %}{% endif %} {% endfor %}</td>
+      </tr>
+      {% endif %}
+      {% if audio.remarque %}
+      <tr>
+        <td>Remarks</td>
+        <td>{{ audio.remarque }}</td>
+      </tr>
+      {% endif %}
+      {% if audio.kf_id_lieu %}
+      <tr>
+        <td>Place</td>
+        <td>{{ audio.kf_id_lieu }}</td>
+      </tr>
+      {% endif %}
+    </table>    
+    
+  </div>
+
+</div>
+{% endblock %}
