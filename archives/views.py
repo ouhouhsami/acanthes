@@ -7,8 +7,11 @@ from django.contrib.auth.decorators import login_required
 
 def home(request):
     filterset = AudioFilterSet(request.GET or None, queryset=Audio.objects.all().order_by('subtitle'))
+    home = False
+    if len(request.GET) == 0:
+        home = True
     return render_to_response('archives/index.html',
-                           {'filterset': filterset},
+                           {'filterset': filterset, 'home':home},
                           context_instance=RequestContext(request))
 
 @login_required
