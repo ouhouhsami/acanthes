@@ -4,7 +4,7 @@
 {% if audio.url_ecoute_intranet_adresse %}
   <script type="text/javascript">
     $(document).ready(function(){
-	
+      $.jPlayer.timeFormat.showHour = true;
       $("#jquery_jplayer_1").jPlayer({
         ready: function () {
           $(this).jPlayer("setMedia", {
