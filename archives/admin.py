@@ -7,8 +7,9 @@ class IntervenantAudioInline(admin.TabularInline):
 
 class AudioAdmin(admin.ModelAdmin):
     inlines = (IntervenantAudioInline,)
-    list_display = ('id', 'annee', 'genre', 'url_ecoute_intranet_adresse' )
+    list_display = ('id','subtitle', 'annee', 'genre', 'url_ecoute_intranet_adresse' )
     list_filter = ('annee', )
+    search_fields = ['subtitle', ]
     exclude = ('duree', 'total_durees', 'chemin_fichier', 'lien_test_web', 'dateissued_portail', 'horodatage_modification', 
     'url_export_ircam', 'type_ircam', 'date_enregistrement', 'acanthes', 
     'horodatage_creation', 'url_ecoute_extranet', 'url_ecoute_internet', 'url_ecoute_intranet', 'details_intranet_actuel_acda',
@@ -22,6 +23,7 @@ class AudioAdmin(admin.ModelAdmin):
 class IntervenantAdmin(admin.ModelAdmin):
     list_display = ('nom', 'prenom')
     exclude = ('horodatage_creation', 'horodatage_modification')
+    search_fields = ['nom', 'prenom']
 
 class LangueAdmin(admin.ModelAdmin):
     list_display = ('languageterm',)
@@ -31,6 +33,7 @@ class LieuAdmin(admin.ModelAdmin):
 
 class OrchestreAdmin(admin.ModelAdmin):
     list_display = ('nom_complet', 'sous_titre')
+    search_fields = ['nom_complet', ]
 
 
 
