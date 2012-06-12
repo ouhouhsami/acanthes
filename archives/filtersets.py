@@ -1,10 +1,10 @@
 import django_filters
 from archives.models import *
+import datetime
 
 
 
-
-YEAR_CHOICES = [(x,x) for x in range(1977,2011)]
+YEAR_CHOICES = [(x,x) for x in range(1977,datetime.datetime.now().year+1)]
 YEAR_CHOICES = [('', '---------')]+ YEAR_CHOICES
 
 class AudioFilterSet(django_filters.FilterSet):
